@@ -1,0 +1,158 @@
+<ion-content [fullscreen]="true">
+  <div class="container pb-4">
+    <h2 class="text-center">Merchants</h2>
+    <div class="merchant-wrapper mt-4" *ngFor="let merchant of merchantData">
+      <div class="card shadow" (click)="merchantClick(merchant['merchantId'])" *ngIf="currentCategory==0 || currentCategory == merchant['category']">
+        <div class="card-content">
+          <div class="row p-0 m-0">
+            <div class="col-3 p-0 m-0">
+              <img [src]="merchant['imageUrl']" alt="" class="rounded-start" />
+            </div>
+            <div class="col-9 mb-1">
+              <h5 class="mt-2">{{merchant['merchantName']}}</h5>
+              <p class="addressLine p-0 m-0">{{merchant['addressLine1']}}</p>
+              <p class="addressLine p-0 m-0">{{merchant['addressLine2']}}</p>
+              <p class="addressLine p-0 m-0">{{merchant['addressLine3']}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Support Button-->
+  <div
+    class="support-button d-flex justify-content-center bg-primary rounded"
+    (click)="setSupportShow(true)"
+  >
+    <ion-icon
+      name="headset-outline"
+      class="align-self-center text-light"
+      size="large"
+    ></ion-icon>
+  </div>
+  <!--Modal for Login and Sign Up-->
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-content>
+        <div class="w-100 h-100 d-flex justify-content-center">
+          <div class="w-100 ps-4 pe-4 mt-3 align-self-center">
+            <div class="login-wrapper" *ngIf="!isSignUpPage">
+              <h1 class="text-center">
+                Welcome to <br />
+                Merchant Feedback System
+              </h1>
+              <h6 class="text-center mt-4">
+                Enter your details below to login
+              </h6>
+              <input
+                [(ngModel)]="loginUsername"
+                type="text"
+                class="form-control w-100 mt-3"
+                placeholder="Username"
+              />
+              <input
+                [(ngModel)]="loginPassword"
+                type="password"
+                class="form-control w-100 mt-3"
+                placeholder="Password"
+              />
+              <button class="btn btn-primary w-100 mt-3" (click)="login()">
+                Login
+              </button>
+              <p class="text-center mt-3">
+                Don't have an account?
+                <a class="text-primary" (click)="setSignUpPageShow(true)"
+                  >Sign up here</a
+                >
+              </p>
+            </div>
+            <div class="sign-up-wrapper" *ngIf="isSignUpPage">
+              <h1 class="text-center">
+                Welcome to <br />
+                Merchant Feedback System
+              </h1>
+              <h6 class="text-center mt-4">
+                Register an account with us today!
+              </h6>
+              <input
+                [(ngModel)]="registerUsername"
+                type="text"
+                class="form-control w-100 mt-3"
+                placeholder="Username"
+              />
+              <input
+                [(ngModel)]="registerEmail"
+                type="email"
+                class="form-control w-100 mt-3"
+                placeholder="Email"
+              />
+              <input
+                [(ngModel)]="registerPassword"
+                type="password"
+                class="form-control w-100 mt-3"
+                placeholder="Password"
+              />
+              <input
+                [(ngModel)]="registerConfirmPassword"
+                type="password"
+                class="form-control w-100 mt-3"
+                placeholder="Confirm Password"
+              />
+              <button class="btn btn-primary w-100 mt-3" (click)="signup()">
+                Sign Up
+              </button>
+              <p class="text-center mt-3">
+                Already have an account?
+                <a class="text-primary" (click)="setSignUpPageShow(false)"
+                  >Login here</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!--Modal for Support Page-->
+  <ion-modal [isOpen]="isSupportOpen">
+    <ng-template>
+      <ion-content>
+        <div class="w-100 h-100 d-flex justify-content-center">
+          <ion-icon
+            name="close-outline"
+            class="modal-close"
+            size="large"
+            (click)="setSupportShow(false)"
+          ></ion-icon>
+          <div class="w-100 ps-4 pe-4 mt-3 align-self-center">
+            <div class="support-wrapper">
+              <h1 class="text-center">
+                Need Support?<br />
+                We're Here For <b><u>YOU</u></b>
+              </h1>
+              <h6 class="text-center mt-4">
+                Leave us a message below and we will get back to you within 3
+                working days!
+              </h6>
+              <input
+                [(ngModel)]="supportSubject"
+                type="text"
+                class="form-control w-100 mt-3"
+                placeholder="Subject"
+              />
+              <textarea
+                [(ngModel)]="supportMessage"
+                class="form-control w-100 mt-3"
+                placeholder="Enter your message here"
+                rows="15"
+              ></textarea>
+              <button class="btn btn-primary w-100 mt-3" (click)="support()">
+                Send The Message!
+              </button>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

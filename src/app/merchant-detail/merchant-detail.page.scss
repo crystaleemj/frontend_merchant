@@ -1,0 +1,30 @@
+.closeBtn{
+    position: fixed;
+    background-color: grey;
+    opacity:0.5;
+    border-radius:50px
+}
+
+.btn-custom{
+    position: absolute;
+    width: 80%;
+    left: 50%; /* Position it 50% from the left of the viewport */
+    transform: translate(-50%, -20%);
+}
+
+.icon-custom{
+    font-size: 30px;
+}
+
+
+.icon-custom2{
+    font-size: 20px;
+}
+
+.review-text{
+    font-size: 1.7vh;
+}
+
+.rating-text{
+    font-size: 1.5vh;
+}
