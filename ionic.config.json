@@ -1,0 +1,7 @@
+{
+  "name": "crystal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
