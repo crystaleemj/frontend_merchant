@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
 export class HomePage {
   private _storage: Storage | null = null;
 
-  constructor(private commonService: CommonService, private storage: Storage, private router:Router) {
+  constructor(private commonService: CommonService, private storage: Storage, private router: Router) {
     this.init()
     this.loadMerchantData()
   }
 
   isModalOpen = true;
-  isSignUpPage = false;
+  isSignUpPage = 'login';
   isSupportOpen = false;
 
   loginUsername = ''
@@ -28,8 +28,13 @@ export class HomePage {
   registerConfirmPassword = ''
   registerEmail = ''
 
+  forgotUsername = ''
+
   supportSubject = ''
   supportMessage = ''
+
+  resetPassword = ''
+  resetConfirmPassword = ''
 
   merchantData = []
   currentCategory = 0
@@ -44,16 +49,16 @@ export class HomePage {
     })
   }
 
-  loadMerchantData(){
-    this.commonService.getAllMerchants().subscribe((res)=>{
+  loadMerchantData() {
+    this.commonService.getAllMerchants().subscribe((res) => {
       console.log(res)
       this.merchantData = res;
     })
   }
 
-  merchantClick(merchantId: number){
-    for(let i=0;i<this.merchantData.length;i++){
-      if(this.merchantData[i]['merchantId'] == merchantId){
+  merchantClick(merchantId: number) {
+    for (let i = 0; i < this.merchantData.length; i++) {
+      if (this.merchantData[i]['merchantId'] == merchantId) {
         this.router.navigate(['/merchant', this.merchantData[i]])
         console.log(this.merchantData[i]);
       }
@@ -64,8 +69,8 @@ export class HomePage {
     this.isModalOpen = isOpen;
   }
 
-  setSignUpPageShow(isSignUp: boolean) {
-    this.isSignUpPage = isSignUp;
+  setSignUpPageShow() {
+    this.isSignUpPage = 'signup';
 
     //Reset values when changing between login page and signup page
     this.loginUsername = ''
@@ -74,6 +79,10 @@ export class HomePage {
     this.registerPassword = ''
     this.registerConfirmPassword = ''
     this.registerEmail = ''
+  }
+
+  setForgotPasswordShow() {
+    this.isSignUpPage = 'forgotpassword';
   }
 
   setSupportShow(isOpen: boolean) {
@@ -85,10 +94,14 @@ export class HomePage {
   login() {
     this.commonService.loginUser(this.loginUsername).subscribe((res) => {
       if (res != null) {
-        console.log(res)
         if (res.password == this.loginPassword) {
           this.storage.set("userId", res.user_id)
-          this.isModalOpen = false;
+          if (res.reset == 0) {
+            this.isModalOpen = false;
+          }
+          else {
+            this.isSignUpPage = 'reset';
+          }
         }
       }
     })
@@ -98,7 +111,7 @@ export class HomePage {
     if (this.registerConfirmPassword == this.registerPassword) {
       this.commonService.signUpUser(this.registerUsername, this.registerPassword, this.registerEmail).subscribe((res) => {
         if (res.msg == "Successful") {
-          this.isSignUpPage = false;
+          this.isSignUpPage = 'login';
         }
       })
     }
@@ -106,6 +119,24 @@ export class HomePage {
 
   support() {
     this.setSupportShow(false);
+  }
+
+  forgotpassword() {
+    this.isSignUpPage = 'forgotstep2';
+  }
+
+  confirmNewPassword() {
+    this.storage.get("userId").then((value) => {
+      if (this.resetPassword == this.resetConfirmPassword) {
+        this.commonService.resetUser(value, this.resetPassword).subscribe((res=>{
+          if (res.msg == "Successful") {
+            this.isModalOpen = false;
+          }
+        }))
+      }
+    })
+
+    
   }
 
 }

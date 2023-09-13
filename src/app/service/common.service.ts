@@ -27,6 +27,10 @@ export class CommonService {
     return this.http.post(this.baseUrl + this.userEndpoint + "/find/username", '{"username":"' + username + '"}', this.httpOptions)
   }
 
+  resetUser(userId:string, password:string): Observable<any> {
+    return this.http.post(this.baseUrl + this.userEndpoint + "/reset/confirm", '{"userId":' + userId + ', "password":"' + password + '"}', this.httpOptions)
+  }
+
   getAllMerchants(): Observable<any> {
     return this.http.get(this.baseUrl + this.merchantEndpoint, this.httpOptions)
   }
