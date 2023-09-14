@@ -14,7 +14,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(),HttpClientModule,IonicStorageModule.forRoot(), AppRoutingModule, NgbModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule, IonicStorageModule.forRoot(), AppRoutingModule, NgbModule, ServiceWorkerModule.register('ngsw-worker.js', {
     enabled: !isDevMode(),
     // Register the ServiceWorker as soon as the application is stable
     // or after 30 seconds (whichever comes first).

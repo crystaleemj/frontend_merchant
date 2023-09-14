@@ -23,11 +23,11 @@ export class CommonService {
     return this.http.put(this.baseUrl + this.userEndpoint + "/create", '{"username":"' + username + '", "password":"' + password + '", "email":"' + email + '"}', this.httpOptions)
   }
 
-  loginUser(username: string): Observable<any> {
-    return this.http.post(this.baseUrl + this.userEndpoint + "/find/username", '{"username":"' + username + '"}', this.httpOptions)
+  loginUser(username: string, password:string): Observable<any> {
+    return this.http.post(this.baseUrl + this.userEndpoint + "/login", '{"username":"' + username + '","password":"' + password + '"}', this.httpOptions)
   }
 
-  resetUser(userId:string, password:string): Observable<any> {
+  resetUser(userId: string, password: string): Observable<any> {
     return this.http.post(this.baseUrl + this.userEndpoint + "/reset/confirm", '{"userId":' + userId + ', "password":"' + password + '"}', this.httpOptions)
   }
 
@@ -37,6 +37,10 @@ export class CommonService {
 
   loadAllReviews(merchantId: number): Observable<any> {
     return this.http.get(this.baseUrl + this.reviewEndpoint + "/merchant/" + merchantId, this.httpOptions)
+  }
+
+  supportRequest(userId: number, supportSubject:string, supportMessage:string): Observable<any> {
+    return this.http.post(this.baseUrl + this.userEndpoint + "/support", '{"userId":' + userId + ',"subject":"' + supportSubject + '","message":"' + supportMessage + '"}', this.httpOptions)
   }
 
   createReview(image: File, merchantId: number, userId: number, feedback: string, rating: number): Observable<any> {
