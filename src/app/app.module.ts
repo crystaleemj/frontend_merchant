@@ -11,10 +11,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(),HttpClientModule,IonicStorageModule.forRoot(), AppRoutingModule, NgbModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  declarations: [AppComponent, NavbarComponent],
+  imports: [BrowserModule, 
+    IonicModule.forRoot(),
+    HttpClientModule,
+    IonicStorageModule.forRoot(), 
+    AppRoutingModule, 
+    NgbModule, 
+    RouterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
     enabled: !isDevMode(),
     // Register the ServiceWorker as soon as the application is stable
     // or after 30 seconds (whichever comes first).
