@@ -1,9 +1,12 @@
 <ion-content [fullscreen]="true">
-  
   <div class="container pb-4">
     <h2 class="text-center">Merchants</h2>
     <div class="merchant-wrapper mt-4" *ngFor="let merchant of merchantData">
-      <div class="card shadow" (click)="merchantClick(merchant['merchantId'])" *ngIf="currentCategory==0 || currentCategory == merchant['category']">
+      <div
+        class="card shadow"
+        (click)="merchantClick(merchant['merchantId'])"
+        *ngIf="currentCategory==0 || currentCategory == merchant['category']"
+      >
         <div class="card-content">
           <div class="row p-0 m-0">
             <div class="col-3 p-0 m-0">
@@ -66,7 +69,10 @@
                   >Sign up here</a
                 >
               </p>
-              <p class="text-center mt-2 text-primary" (click)="setForgotPasswordShow()">
+              <p
+                class="text-center mt-2 text-primary"
+                (click)="setForgotPasswordShow()"
+              >
                 Forgot your password?
               </p>
             </div>
@@ -113,11 +119,10 @@
               </p>
             </div>
             <div class="forgot-wrapper" *ngIf="isSignUpPage=='forgotpassword'">
-              <h1 class="text-center">
-                Oh no! <br />
-              </h1>
+              <h1 class="text-center">Oh no! <br /></h1>
               <h6 class="text-center mt-4">
-                Simply enter your username here and we will send you a recovery password to your email
+                Simply enter your username here and we will send you a recovery
+                password to your email
               </h6>
               <input
                 [(ngModel)]="forgotUsername"
@@ -125,7 +130,10 @@
                 class="form-control w-100 mt-3"
                 placeholder="Username"
               />
-              <button class="btn btn-primary w-100 mt-3" (click)="forgotpassword()">
+              <button
+                class="btn btn-primary w-100 mt-3"
+                (click)="forgotpassword()"
+              >
                 Submit
               </button>
               <p class="text-center mt-3">
@@ -136,9 +144,7 @@
               </p>
             </div>
             <div class="reset-wrapper" *ngIf="isSignUpPage=='reset'">
-              <h1 class="text-center">
-                Enter your new password <br />
-              </h1>
+              <h1 class="text-center">Enter your new password <br /></h1>
               <input
                 [(ngModel)]="resetPassword"
                 type="password"
@@ -151,7 +157,10 @@
                 class="form-control w-100 mt-3"
                 placeholder="Confirm Password"
               />
-              <button class="btn btn-primary w-100 mt-3" (click)="confirmNewPassword()">
+              <button
+                class="btn btn-primary w-100 mt-3"
+                (click)="confirmNewPassword()"
+              >
                 Submit
               </button>
             </div>

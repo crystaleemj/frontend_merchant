@@ -16,6 +16,8 @@ export class HomePage {
     this.loadMerchantData()
   }
 
+  isNavbarCollapsed = true;
+
   isModalOpen = true;
   isSignUpPage = 'login';
   isSupportOpen = false;
@@ -92,16 +94,14 @@ export class HomePage {
   }
 
   login() {
-    this.commonService.loginUser(this.loginUsername).subscribe((res) => {
+    this.commonService.loginUser(this.loginUsername, this.loginPassword).subscribe((res) => {
       if (res != null) {
-        if (res.password == this.loginPassword) {
-          this.storage.set("userId", res.user_id)
-          if (res.reset == 0) {
-            this.isModalOpen = false;
-          }
-          else {
-            this.isSignUpPage = 'reset';
-          }
+        this.storage.set("userId", res.user_id)
+        if (res.reset == 0) {
+          this.isModalOpen = false;
+        }
+        else {
+          this.isSignUpPage = 'reset';
         }
       }
     })
@@ -118,7 +118,13 @@ export class HomePage {
   }
 
   support() {
-    this.setSupportShow(false);
+    this.storage.get("userId").then((value) => {
+      this.commonService.supportRequest(value, this.supportSubject, this.supportMessage).subscribe((res => {
+        if (res.msg == "Successful") {
+          this.setSupportShow(false);
+        }
+      }))
+    })
   }
 
   forgotpassword() {
@@ -128,7 +134,7 @@ export class HomePage {
   confirmNewPassword() {
     this.storage.get("userId").then((value) => {
       if (this.resetPassword == this.resetConfirmPassword) {
-        this.commonService.resetUser(value, this.resetPassword).subscribe((res=>{
+        this.commonService.resetUser(value, this.resetPassword).subscribe((res => {
           if (res.msg == "Successful") {
             this.isModalOpen = false;
           }
@@ -136,7 +142,7 @@ export class HomePage {
       }
     })
 
-    
+
   }
 
 }
