@@ -62,7 +62,7 @@ export class MerchantDetailPage implements OnInit {
             this.commonService.createReview(this.formFile, this.merchantData['merchantId'], value, this.formFeedback, this.formRating).subscribe((res) => {
               if (res.msg == "Successful") {
                 this.isModalOpen = false;
-                window.location.reload();
+                this.location.back();
               }
             })
           }
