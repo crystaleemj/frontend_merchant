@@ -168,6 +168,7 @@ export class HomePage {
       if (this.resetPassword == this.resetConfirmPassword) {
         this.commonService.resetUser(value, this.resetPassword).subscribe((res => {
           if (res.msg == "Successful") {
+            this.isSignUpPage = "login"
             this.isModalOpen = false;
           }
         }))
