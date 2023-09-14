@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,11 +12,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
-  imports: [BrowserModule, 
+  declarations: [AppComponent],
+  imports: [BrowserModule,
+    HttpClientJsonpModule,
     IonicModule.forRoot(),
     HttpClientModule,
     IonicStorageModule.forRoot(), 

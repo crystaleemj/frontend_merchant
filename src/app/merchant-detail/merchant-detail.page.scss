@@ -28,3 +28,35 @@
 .rating-text{
     font-size: 1.5vh;
 }
+
+.merchantImgCustom{
+    width: 90%;
+}
+
+.customDiv{
+    height: 100% !important;
+    display: flex;
+}
+
+.customRow{
+    align-self: center !important;
+}
+
+@media(max-width:575.98px) {
+    .merchantImgCustom{
+        width: 100%;
+    }
+    .customDiv{
+        height: inherit !important;
+        display: block;
+    }
+    .customRow{
+        align-self:auto !important;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .customDiv{
+        height: 100% !important;
+    }
+}

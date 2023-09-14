@@ -1,7 +1,48 @@
 <ion-content [fullscreen]="true">
-  <div class="container pb-4">
-    <h2 class="text-center">Merchants</h2>
-    <div class="merchant-wrapper mt-4" *ngFor="let merchant of merchantData">
+  <div class="container pb-4 pt-5">
+    <div class="row">
+      <div class="col-2 p-0 m-0 d-flex justify-content-center">
+        <ion-icon
+        (click)="logout()"
+      name="exit-outline"
+      class="align-self-center customHeaderBtn text-dark"
+    ></ion-icon>
+      </div>
+      <div class="col-8 d-flex justify-content-center">
+        <h2 class="text-center m-0 align-self-center">CritiQ</h2>
+      </div>
+      <div class="col-2 p-0 m-0 d-flex justify-content-center">
+          <ion-icon
+          (click)="setSupportShow(true)"
+          name="headset-outline"
+          class="align-self-center customHeaderBtn text-dark"
+        ></ion-icon>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-9">
+        <h6>Search</h6>
+      </div>
+      <div class="col-3">
+        <h6>Category</h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-9">
+        <input type="text"
+        class="form-control shadow align-self-bottom"
+        placeholder="Enter search parameter" (keyup)="searchChange($event)"/>
+      </div>
+      <div class="col-3">
+    <select (change)="categoryChange($event)" class="form-control w-100 shadow">
+      <option value="0">Nani</option>
+      <option value="1">Nanu</option>
+      <option value="2">Nano</option>
+    </select>
+      </div>
+    </div>
+    <div class="merchant-wrapper mt-4" *ngFor="let merchant of merchantSearched">
       <div
         class="card shadow"
         (click)="merchantClick(merchant['merchantId'])"
@@ -22,17 +63,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <!--Support Button-->
-  <div
-    class="support-button d-flex justify-content-center bg-primary rounded"
-    (click)="setSupportShow(true)"
-  >
-    <ion-icon
-      name="headset-outline"
-      class="align-self-center text-light"
-      size="large"
-    ></ion-icon>
   </div>
   <!--Modal for Login and Sign Up-->
   <ion-modal [isOpen]="isModalOpen">
@@ -170,24 +200,36 @@
     </ng-template>
   </ion-modal>
   <!--Modal for Support Page-->
-  <ion-modal [isOpen]="isSupportOpen">
+  <ion-modal class="w-100 h-100" [isOpen]="isSupportOpen">
     <ng-template>
       <ion-content>
-        <div class="w-100 h-100 d-flex justify-content-center">
+        <div class="w-100 h-100 pb-4 pt-5 d-flex justify-content-center">
           <ion-icon
             name="close-outline"
             class="modal-close"
             size="large"
             (click)="setSupportShow(false)"
           ></ion-icon>
-          <div class="w-100 ps-4 pe-4 mt-3 align-self-center">
-            <div class="support-wrapper">
+          <div class="w-100 h-100 ps-4 pe-4 align-self-center">
               <h1 class="text-center">
                 Need Support?<br />
                 We're Here For <b><u>YOU</u></b>
               </h1>
               <h6 class="text-center mt-4">
-                Leave us a message below and we will get back to you within 3
+                You can choose to visit us here
+              </h6>
+              <<div class="google_map_container">
+                <google-map [zoom]="mapZoom" [center]="mapCenter" [options]="mapOptions">
+                  <map-marker
+                    #marker="mapMarker"
+                    [position]="mapCenter"
+                    [options]="markerOptions">
+                  </map-marker>
+                  <map-info-window>{{ markerInfoContent }}</map-info-window>
+                </google-map>
+              </div>
+              <h6 class="text-center mt-4">
+                Or leave us a message below and we will get back to you within 3
                 working days!
               </h6>
               <input
@@ -202,12 +244,11 @@
                 placeholder="Enter your message here"
                 rows="15"
               ></textarea>
-              <button class="btn btn-primary w-100 mt-3" (click)="support()">
+              <button class="btn btn-primary w-100 mt-3 mb-2" (click)="support()">
                 Send The Message!
               </button>
             </div>
           </div>
-        </div>
       </ion-content>
     </ng-template>
   </ion-modal>
