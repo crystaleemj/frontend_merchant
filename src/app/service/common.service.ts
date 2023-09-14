@@ -27,6 +27,10 @@ export class CommonService {
     return this.http.post(this.baseUrl + this.userEndpoint + "/login", '{"username":"' + username + '","password":"' + password + '"}', this.httpOptions)
   }
 
+  forgotPass(username:string): Observable<any> {
+    return this.http.post(this.baseUrl + this.userEndpoint + "/reset", '{"username":"' + username +'"}', this.httpOptions)
+  }
+
   resetUser(userId: string, password: string): Observable<any> {
     return this.http.post(this.baseUrl + this.userEndpoint + "/reset/confirm", '{"userId":' + userId + ', "password":"' + password + '"}', this.httpOptions)
   }

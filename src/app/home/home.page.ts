@@ -160,7 +160,13 @@ export class HomePage {
   }
 
   forgotpassword() {
-    this.isSignUpPage = 'forgotstep2';
+    if (this.forgotUsername != "") {
+      this.commonService.forgotPass(this.forgotUsername).subscribe((res => {
+        if (res.msg == "Successful") {
+          this.isSignUpPage = "login";
+        }
+      }))
+    }
   }
 
   confirmNewPassword() {
